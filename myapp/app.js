@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const mongoose = require('mongoose');
 const app = express()
 const port = 3000
 
@@ -10,6 +11,13 @@ app.put('/', (req, res) => {
   res.send('Sent')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+mongoose.connect('mongodb://Student01:Student01@logan', { dbName: 'home16' })
+    .then(() => {
+        console.log("Connected to the database!");
+        app.listen(port, () => {
+            console.log(`Example app listening on port ${port}`);
+        });
+    })
+    .catch(() => {
+        console.log("Failed to connect to the database.");
+    });
